@@ -8,9 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import ru.javaops.bootjava.AuthUser;
 import ru.javaops.bootjava.model.User;
@@ -25,6 +27,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Slf4j
 @AllArgsConstructor
 public class WebSecurityConfig {
+    public static final PasswordEncoder PASSWORD_ENCODER = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     private final UserRepository userRepository;
 
     @Bean
@@ -40,7 +43,7 @@ public class WebSecurityConfig {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth, UserDetailsService userDetailsService) throws Exception {
         auth.userDetailsService(userDetailsService)
-                .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder());
+                .passwordEncoder(PASSWORD_ENCODER);
     }
 
     @Bean
@@ -51,7 +54,9 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .httpBasic(withDefaults())
-                .formLogin(withDefaults());
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .csrf().disable();
         return http.build();
     }
 }
