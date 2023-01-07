@@ -50,6 +50,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/account/register").anonymous()
                         .requestMatchers("/api/account").hasRole("USER")
                         .requestMatchers("/api/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
