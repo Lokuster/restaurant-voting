@@ -1,5 +1,7 @@
 package ru.javaops.bootjava.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import ru.javaops.bootjava.AuthUser;
 import ru.javaops.bootjava.model.User;
 import ru.javaops.bootjava.repository.UserRepository;
+import ru.javaops.bootjava.util.JsonUtil;
 
 import java.util.Optional;
 
@@ -29,6 +32,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class WebSecurityConfig {
     public static final PasswordEncoder PASSWORD_ENCODER = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     private final UserRepository userRepository;
+    private final ObjectMapper objectMapper;
+
+    @PostConstruct
+    void setMapper() {
+        JsonUtil.setObjectMapper(objectMapper);
+    }
 
     @Bean
     public UserDetailsService userDetailsService() {
