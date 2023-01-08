@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static ru.javaops.bootjava.UserTestUtil.*;
 
 class UserControllerTest extends AbstractControllerTest {
-    static final String URL = "/api/users/";
+    static final String URL = "/api/users";
 
     @Autowired
     private UserRepository userRepository;
@@ -23,7 +23,7 @@ class UserControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(URL + USER_ID))
+        perform(MockMvcRequestBuilders.get(URL + "/" + USER_ID))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaTypes.HAL_JSON_VALUE));
@@ -41,7 +41,7 @@ class UserControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void getByEmail() throws Exception {
-        perform(MockMvcRequestBuilders.get(URL + "search/by-email?email=" + ADMIN_MAIL))
+        perform(MockMvcRequestBuilders.get(URL + "/search/by-email?email=" + ADMIN_MAIL))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaTypes.HAL_JSON_VALUE));
@@ -57,7 +57,7 @@ class UserControllerTest extends AbstractControllerTest {
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(URL + USER_ID))
+        perform(MockMvcRequestBuilders.delete(URL + "/" + USER_ID))
                 .andExpect(status().isNoContent());
         Assertions.assertFalse(userRepository.findById(USER_ID).isPresent());
         Assertions.assertTrue(userRepository.findById(ADMIN_ID).isPresent());
