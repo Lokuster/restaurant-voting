@@ -1,5 +1,6 @@
 package ru.javaops.bootjava.web;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @RequestMapping("/api/account")
 @AllArgsConstructor
 @Slf4j
+@Tag(name = "Account Controller")
 public class AccountController implements RepresentationModelProcessor<RepositoryLinksResource> {
     @SuppressWarnings("unchecked")
     private static final RepresentationModelAssemblerSupport<User, EntityModel<User>> ASSEMBLER =
