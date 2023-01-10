@@ -13,8 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import ru.javaops.bootjava.model.Role;
 import ru.javaops.bootjava.model.User;
@@ -25,18 +23,18 @@ import ru.javaops.bootjava.web.AuthUser;
 import java.util.Optional;
 
 import static org.springframework.security.config.Customizer.withDefaults;
+import static ru.javaops.bootjava.util.UserUtil.PASSWORD_ENCODER;
 
 @Configuration
 @EnableWebSecurity
 @Slf4j
 @AllArgsConstructor
 public class WebSecurityConfig {
-    public static final PasswordEncoder PASSWORD_ENCODER = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     private final UserRepository userRepository;
 
     @Autowired
     void setMapper(ObjectMapper objectMapper) {
-        JsonUtil.setObjectMapper(objectMapper);
+        JsonUtil.setMapper(objectMapper);
     }
 
     @Bean
@@ -59,10 +57,9 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/account/register").anonymous()
-                        .requestMatchers(HttpMethod.POST, "/api/account").anonymous()
-                        .requestMatchers("/api/account").hasRole(Role.USER.name())
-                        .requestMatchers("/api/**").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/profile").anonymous()
+                        .requestMatchers("/api/admin/**").hasRole(Role.ADMIN.name())
+                        .requestMatchers("/api/**").authenticated()
                         .anyRequest().authenticated())
                 .httpBasic(withDefaults())
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

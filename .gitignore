@@ -5,5 +5,9 @@ patch
 ### IntelliJ IDEA ###
 .idea
 *.iws
+out
+target
 *.iml
 *.ipr
+log
+*.patch
