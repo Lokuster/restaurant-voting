@@ -1,6 +1,5 @@
 package ru.javaops.bootjava.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,7 +20,7 @@ public abstract class BaseEntity implements Persistable<Integer>, HasId {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY) // https://stackoverflow.com/a/28025008/548473
+    @Schema(hidden = true)
     protected Integer id;
 
     // doesn't work for hibernate lazy proxy
@@ -30,7 +29,6 @@ public abstract class BaseEntity implements Persistable<Integer>, HasId {
         return id;
     }
 
-    @JsonIgnore
     @Override
     public boolean isNew() {
         return id == null;
