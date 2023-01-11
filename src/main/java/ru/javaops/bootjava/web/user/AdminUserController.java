@@ -22,7 +22,7 @@ import static ru.javaops.bootjava.util.validation.ValidationUtil.checkNew;
 @Slf4j
 public class AdminUserController extends AbstractUserController {
 
-    static final String REST_URL = "/api/admin/users";
+    static final String REST_URL = "/admin/users";
 
     @Override
     @GetMapping("/{id}")
@@ -45,7 +45,7 @@ public class AdminUserController extends AbstractUserController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> createWithLocation(@Valid @RequestBody User user) {
-        log.info("create {}", user);
+        log.info("create user {}", user);
         checkNew(user);
         User created = prepareAndSave(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -57,7 +57,7 @@ public class AdminUserController extends AbstractUserController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody User user, @PathVariable int id) {
-        log.info("update {} with id={}", user, id);
+        log.info("update user {} with id={}", user, id);
         assureIdConsistent(user, id);
         prepareAndSave(user);
     }
@@ -72,7 +72,7 @@ public class AdminUserController extends AbstractUserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public void enable(@PathVariable int id, @RequestParam boolean enabled) {
-        log.info(enabled ? "enable {}" : "disable {}", id);
+        log.info(enabled ? "enable user {}" : "disable {}", id);
         User user = repository.getExisted(id);
         user.setEnabled(enabled);
     }
