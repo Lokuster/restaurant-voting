@@ -26,7 +26,7 @@ public class AdminUserController extends AbstractUserController {
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<User> get(@PathVariable int id) {
+    public User get(@PathVariable int id) {
         return super.get(id);
     }
 

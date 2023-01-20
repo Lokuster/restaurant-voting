@@ -10,7 +10,7 @@ import ru.javaops.bootjava.model.User;
 import ru.javaops.bootjava.repository.UserRepository;
 import ru.javaops.bootjava.to.UserTo;
 import ru.javaops.bootjava.util.JsonUtil;
-import ru.javaops.bootjava.util.UserUtil;
+import ru.javaops.bootjava.util.UsersUtil;
 import ru.javaops.bootjava.web.AbstractControllerTest;
 
 import static org.hamcrest.Matchers.containsString;
@@ -52,7 +52,7 @@ class ProfileControllerTest extends AbstractControllerTest {
     @Test
     void register() throws Exception {
         UserTo newTo = new UserTo(null, "newName", "newemail@ya.ru", "newPassword");
-        User newUser = UserUtil.createNewFromTo(newTo);
+        User newUser = UsersUtil.createNewFromTo(newTo);
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newTo)))
@@ -75,7 +75,7 @@ class ProfileControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        USER_MATCHER.assertMatch(userRepository.getExisted(USER_ID), UserUtil.updateFromTo(new User(user), updatedTo));
+        USER_MATCHER.assertMatch(userRepository.getExisted(USER_ID), UsersUtil.updateFromTo(new User(user), updatedTo));
     }
 
     @Test

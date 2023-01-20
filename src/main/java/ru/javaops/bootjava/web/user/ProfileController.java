@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.javaops.bootjava.model.User;
 import ru.javaops.bootjava.to.UserTo;
-import ru.javaops.bootjava.util.UserUtil;
+import ru.javaops.bootjava.util.UsersUtil;
 import ru.javaops.bootjava.web.AuthUser;
 
 import java.net.URI;
@@ -41,7 +41,7 @@ public class ProfileController extends AbstractUserController {
     public ResponseEntity<User> register(@Valid @RequestBody UserTo userTo) {
         log.info("register {}", userTo);
         checkNew(userTo);
-        User created = prepareAndSave(UserUtil.createNewFromTo(userTo));
+        User created = prepareAndSave(UsersUtil.createNewFromTo(userTo));
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL).build().toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
@@ -53,6 +53,6 @@ public class ProfileController extends AbstractUserController {
     public void update(@RequestBody @Valid UserTo userTo, @AuthenticationPrincipal AuthUser authUser) {
         assureIdConsistent(userTo, authUser.id());
         User user = authUser.getUser();
-        prepareAndSave(UserUtil.updateFromTo(user, userTo));
+        prepareAndSave(UsersUtil.updateFromTo(user, userTo));
     }
 }

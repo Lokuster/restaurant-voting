@@ -1,13 +1,12 @@
 package ru.javaops.bootjava.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 import java.io.Serializable;
 
@@ -20,6 +19,10 @@ public class Dish extends NamedEntity implements Serializable {
     @Column(name = "price", nullable = false)
     @NotNull
     private Integer price;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @BatchSize(size = 200)
+    private Menu menu;
 
     public Dish(int id, String name, int price) {
         super(id, name);
@@ -34,5 +37,6 @@ public class Dish extends NamedEntity implements Serializable {
     public Dish(Dish dish) {
         super(dish.id, dish.name);
         this.price = dish.price;
+        this.menu = dish.menu;
     }
 }

@@ -8,7 +8,7 @@ import ru.javaops.bootjava.to.UserTo;
 import static ru.javaops.bootjava.config.SecurityConfiguration.PASSWORD_ENCODER;
 
 @UtilityClass
-public class UserUtil {
+public class UsersUtil {
 
     public static User createNewFromTo(UserTo userTo) {
         return new User(null, userTo.getName(), userTo.getEmail().toLowerCase(), userTo.getPassword(), Role.USER);
