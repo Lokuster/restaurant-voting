@@ -22,7 +22,7 @@ import static ru.javaops.bootjava.util.validation.ValidationUtil.checkNew;
 @Slf4j
 public class AdminUserController extends AbstractUserController {
 
-    static final String REST_URL = "/admin/users";
+    static final String REST_URL = "/api/admin/users";
 
     @Override
     @GetMapping("/{id}")

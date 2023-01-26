@@ -11,7 +11,7 @@ import org.hibernate.annotations.BatchSize;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "dish")
+@Table(name = "dishes")
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

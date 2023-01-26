@@ -23,7 +23,7 @@ import static ru.javaops.bootjava.util.validation.ValidationUtil.checkNew;
 @RequestMapping(value = ProfileController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 public class ProfileController extends AbstractUserController {
-    static final String REST_URL = "/user/profile";
+    static final String REST_URL = "/api/user/profile";
 
     @GetMapping
     public User get(@AuthenticationPrincipal AuthUser authUser) {

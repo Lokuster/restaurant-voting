@@ -10,7 +10,7 @@ import org.hibernate.annotations.BatchSize;
 
 import java.util.Date;
 
-@Table(name = "menu")
+@Table(name = "menus")
 @Entity
 @Getter
 @Setter

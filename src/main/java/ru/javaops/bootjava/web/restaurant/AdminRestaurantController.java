@@ -22,26 +22,26 @@ import static ru.javaops.bootjava.util.validation.ValidationUtil.checkNew;
 @Slf4j
 @AllArgsConstructor
 public class AdminRestaurantController {
-    static final String REST_URL = "/admin/restaurants";
+    static final String REST_URL = "/api/admin/restaurants";
     private final RestaurantRepository repository;
 
     @GetMapping("/{id}")
     public Restaurant get(@PathVariable int id) {
         log.info("get restaurant with id {}", id);
-        return repository.findById(id).orElse(null);
+        return repository.get(id);
     }
 
     @GetMapping
     public List<Restaurant> getAll() {
         log.info("restaurant getAll");
-        return repository.findAll();
+        return repository.getAll();
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         log.info("delete restaurant with id {}", id);
-        repository.deleteExisted(id);
+        repository.delete(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

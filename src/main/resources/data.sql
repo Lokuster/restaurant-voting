@@ -7,17 +7,19 @@ VALUES ('USER', 1),
        ('ADMIN', 2),
        ('USER', 2);
 
-INSERT INTO RESTAURANT (NAME, VOTE_COUNT)
-VALUES ('Cloth Mone', null);
+INSERT INTO RESTAURANTS (NAME, VOTE_COUNT)
+VALUES ('First Restaurant', 0),
+       ('Second Restaurant', 0),
+       ('Third Restaurant', 0);
 
-INSERT INTO MENU (MENU_DATE, RESTAURANT_ID)
-VALUES ('2023-01-10', 1),
-       ('2023-01-11', null),
-       ('2023-01-12', null),
-       ('2023-01-13', null),
-       ('2023-01-14', null);
+INSERT INTO MENUS (MENU_DATE, RESTAURANT_ID)
+VALUES (NOW(), 1),
+       (NOW(), null),
+       (NOW(), null),
+       (NOW(), null),
+       (NOW(), null);
 
- INSERT INTO DISH (NAME, PRICE, MENU_ID)
+ INSERT INTO DISHES (NAME, PRICE, MENU_ID)
  VALUES ('Beef Stroganoff', 100, 1),
         ('Reuben', 250, 1),
         ('Sandwich', 200, 2),
