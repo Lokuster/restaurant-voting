@@ -51,6 +51,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                 .requestMatchers("/api/admin/**").hasRole(Role.ADMIN.name())
                 .requestMatchers(HttpMethod.POST, "/api/user/profile").anonymous()
+                .requestMatchers("/api/user/**").authenticated()
                 .requestMatchers("/**").authenticated()
                 .and().httpBasic()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

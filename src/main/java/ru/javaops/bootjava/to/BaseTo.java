@@ -7,10 +7,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.javaops.bootjava.HasId;
 
+import java.io.Serializable;
+
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public abstract class BaseTo implements HasId {
+public abstract class BaseTo implements HasId, Serializable {
     @Schema(hidden = true)
     protected Integer id;
 

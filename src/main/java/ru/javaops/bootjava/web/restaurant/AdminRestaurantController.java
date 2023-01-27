@@ -34,7 +34,7 @@ public class AdminRestaurantController {
     @GetMapping
     public List<Restaurant> getAll() {
         log.info("restaurant getAll");
-        return repository.getAll();
+        return repository.findAll();
     }
 
     @DeleteMapping("/{id}")

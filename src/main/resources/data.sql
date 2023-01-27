@@ -7,22 +7,21 @@ VALUES ('USER', 1),
        ('ADMIN', 2),
        ('USER', 2);
 
-INSERT INTO RESTAURANTS (NAME, VOTE_COUNT)
-VALUES ('First Restaurant', 0),
-       ('Second Restaurant', 0),
-       ('Third Restaurant', 0);
+INSERT INTO RESTAURANTS (NAME)
+VALUES ('First Restaurant'),
+       ('Second Restaurant'),
+       ('Third Restaurant');
 
-INSERT INTO MENUS (MENU_DATE, RESTAURANT_ID)
-VALUES (NOW(), 1),
-       (NOW(), null),
-       (NOW(), null),
-       (NOW(), null),
-       (NOW(), null);
+INSERT INTO DISHES (NAME, PRICE, RESTAURANT_ID)
+VALUES ('First Dish', 100, 1),
+       ('Second Dish', 150, 1),
+       ('Third Dish', 200, 1),
+       ('Fourth Dish', 100, 2),
+       ('Firth Dish', 150, 2),
+       ('Sixth Dish', 200, 2),
+       ('Seventh Dish', 100, 3),
+       ('Eighth Dish', 150, 3),
+       ('Ninth Dish', 200, 3);
 
- INSERT INTO DISHES (NAME, PRICE, MENU_ID)
- VALUES ('Beef Stroganoff', 100, 1),
-        ('Reuben', 250, 1),
-        ('Sandwich', 200, 2),
-        ('Waldorf Salad', 2000, 2),
-        ('French Fries', 10, 3),
-        ('Caesar Salad', 120, 3);
+INSERT INTO VOTES (VOTE_DATE, RESTAURANT_ID, USER_ID)
+VALUES (NOW(), 1, 1);

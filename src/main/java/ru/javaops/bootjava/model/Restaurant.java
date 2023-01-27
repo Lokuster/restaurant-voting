@@ -1,13 +1,12 @@
 package ru.javaops.bootjava.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Formula;
 
 @Entity
 @Table(name = "restaurants")
@@ -15,7 +14,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Restaurant extends NamedEntity {
-    @Column(name = "vote_count")
-    @NotNull
+    @Formula("(SELECT COUNT(*) FROM VOTES v WHERE v.restaurant_id = id)")
     private Integer voteCount;
 }

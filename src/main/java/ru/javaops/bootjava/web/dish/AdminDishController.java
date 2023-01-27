@@ -1,7 +1,7 @@
 package ru.javaops.bootjava.web.dish;
 
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,9 +20,9 @@ import static ru.javaops.bootjava.util.validation.ValidationUtil.checkNew;
 @Slf4j
 @RestController
 @RequestMapping(value = AdminDishController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AdminDishController {
-    static final String REST_URL = "/admin/dishes";
+    static final String REST_URL = "/api/admin/dishes";
     private final DishRepository repository;
 
     @GetMapping

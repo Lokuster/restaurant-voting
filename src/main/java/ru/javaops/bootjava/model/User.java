@@ -1,7 +1,6 @@
 package ru.javaops.bootjava.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -29,23 +28,21 @@ import java.util.*;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends NamedEntity implements HasIdAndEmail, Serializable {
-    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Restaurant restaurant, Date voteDate, Collection<Role> roles) {
+    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Collection<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;
         this.enabled = enabled;
         this.registered = registered;
         setRoles(roles);
-        this.restaurant = restaurant;
-        this.voteDate = voteDate;
     }
 
     public User(User u) {
-        this(u.id, u.name, u.email, u.password, u.enabled, u.registered, u.restaurant, u.voteDate, u.roles);
+        this(u.id, u.name, u.email, u.password, u.enabled, u.registered, u.roles);
     }
 
-    public User(Integer id, String name, String email, String password, Restaurant restaurant, Date voteDate, Role... roles) {
-        this(id, name, email, password, true, new Date(), restaurant, voteDate, Arrays.asList(roles));
+    public User(Integer id, String name, String email, String password, Role... roles) {
+        this(id, name, email, password, true, new Date(), Arrays.asList(roles));
     }
 
     @Serial
@@ -81,13 +78,6 @@ public class User extends NamedEntity implements HasIdAndEmail, Serializable {
     @JoinColumn
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Role> roles;
-
-    @ManyToOne
-    @Nullable
-    private Restaurant restaurant;
-
-    @Nullable
-    private Date voteDate;
 
     public void setEmail(String email) {
         this.email = StringUtils.hasText(email) ? email.toLowerCase() : null;
