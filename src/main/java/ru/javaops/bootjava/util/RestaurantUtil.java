@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @UtilityClass
-public class RestaurantMapper {
+public class RestaurantUtil {
     public static RestaurantTo asTo(Restaurant restaurant, List<Dish> dishes) {
         if (restaurant == null) {
             return null;
@@ -17,7 +17,7 @@ public class RestaurantMapper {
         return new RestaurantTo(
                 restaurant.getId(),
                 restaurant.getName(),
-                dishes.stream().map(DishMapper::asTo).collect(Collectors.toList())
+                dishes.stream().map(DishUtil::asTo).collect(Collectors.toList())
         );
     }
 }

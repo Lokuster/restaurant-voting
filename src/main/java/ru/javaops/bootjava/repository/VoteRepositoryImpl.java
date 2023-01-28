@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -37,5 +39,30 @@ public class VoteRepositoryImpl implements VoteRepository {
                     "You have already voted for this restaurant");
         }
         repository.updateVote(restaurant.getId(), new Date(), vote.getId());
+    }
+
+    @Override
+    public List<Vote> findAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Optional<Vote> findById(int id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public void deleteExisted(int id) {
+        repository.deleteExisted(id);
+    }
+
+    @Override
+    public Vote save(Vote vote) {
+        return repository.save(vote);
+    }
+
+    @Override
+    public Vote getWithData(int id) {
+        return repository.getWithData(id);
     }
 }

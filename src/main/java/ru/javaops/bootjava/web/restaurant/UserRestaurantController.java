@@ -14,7 +14,7 @@ import ru.javaops.bootjava.web.AuthUser;
 
 import java.util.List;
 
-import static ru.javaops.bootjava.util.RestaurantMapper.asTo;
+import static ru.javaops.bootjava.util.RestaurantUtil.asTo;
 
 @Slf4j
 @RestController

@@ -1,5 +1,6 @@
 package ru.javaops.bootjava.repository;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,4 +16,8 @@ public interface CrudVoteRepository extends BaseRepository<Vote> {
     @Modifying
     @Query("UPDATE Vote v SET v.restaurant.id = :restaurantId, v.voteDate = :date WHERE v.id = :id")
     void updateVote(Integer restaurantId, Date date, Integer id);
+
+    @EntityGraph(attributePaths = {"restaurant", "user"}, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT v FROM Vote v WHERE v.id = :id")
+    Vote getWithData(int id);
 }

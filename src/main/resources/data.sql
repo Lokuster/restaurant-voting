@@ -23,5 +23,5 @@ VALUES ('First Dish', 100, 1),
        ('Eighth Dish', 150, 3),
        ('Ninth Dish', 200, 3);
 
-INSERT INTO VOTES (VOTE_DATE, RESTAURANT_ID, USER_ID)
-VALUES (NOW(), 1, 1);
+INSERT INTO VOTES (RESTAURANT_ID, USER_ID)
+VALUES (1, 1);

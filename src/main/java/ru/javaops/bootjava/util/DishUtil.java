@@ -5,7 +5,7 @@ import ru.javaops.bootjava.model.Dish;
 import ru.javaops.bootjava.to.DishTo;
 
 @UtilityClass
-public class DishMapper {
+public class DishUtil {
     public static DishTo asTo(Dish dish) {
         return new DishTo(
                 dish.getId(),
