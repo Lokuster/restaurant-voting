@@ -18,5 +18,5 @@ public interface VoteRepository {
 
     Vote save(Vote vote);
 
-    Vote getWithData(int id);
+    Vote getExisted(int id);
 }

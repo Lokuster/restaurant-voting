@@ -1,13 +1,13 @@
 package ru.javaops.bootjava.repository;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
-import ru.javaops.bootjava.error.AppException;
+import ru.javaops.bootjava.error.BadVoteRequestException;
 import ru.javaops.bootjava.model.Restaurant;
 import ru.javaops.bootjava.model.User;
 import ru.javaops.bootjava.model.Vote;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -21,22 +21,20 @@ public class VoteRepositoryImpl implements VoteRepository {
     private final CrudVoteRepository repository;
     private static final LocalTime CAN_CHANGE_BEFORE_TIME = LocalTime.of(11, 0);
 
+    private final Clock clock;
+
     @Override
     public void vote(User user, Restaurant restaurant) {
         Vote vote = repository.getLastUserVote(user.getId());
-        if (vote == null || vote.getVoteDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isBefore(LocalDate.now())) {
-            repository.save(new Vote(null, user, restaurant, new Date()));
+        if (vote == null || vote.getVoteDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isBefore(LocalDate.now(clock))) {
+            repository.save(new Vote(null, user, restaurant));
             return;
         }
-        if (LocalTime.now().isAfter(CAN_CHANGE_BEFORE_TIME)) {
-            throw new AppException(
-                    HttpStatus.BAD_REQUEST,
-                    "You have already voted for restaurant today");
+        if (LocalTime.now(clock).isAfter(CAN_CHANGE_BEFORE_TIME)) {
+            throw new BadVoteRequestException("You have already voted for restaurant today");
         }
         if (vote.getRestaurant().getId() == restaurant.getId()) {
-            throw new AppException(
-                    HttpStatus.BAD_REQUEST,
-                    "You have already voted for this restaurant");
+            throw new BadVoteRequestException("You have already voted for this restaurant");
         }
         repository.updateVote(restaurant.getId(), new Date(), vote.getId());
     }
@@ -62,7 +60,7 @@ public class VoteRepositoryImpl implements VoteRepository {
     }
 
     @Override
-    public Vote getWithData(int id) {
-        return repository.getWithData(id);
+    public Vote getExisted(int id) {
+        return repository.getExisted(id);
     }
 }

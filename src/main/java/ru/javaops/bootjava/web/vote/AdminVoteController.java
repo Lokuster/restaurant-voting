@@ -25,7 +25,7 @@ import static ru.javaops.bootjava.web.vote.AdminVoteController.REST_URL;
 @RequestMapping(value = REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class AdminVoteController {
-    static final String REST_URL = "/api/admin/votes";
+    public static final String REST_URL = "/api/admin/votes";
     private final VoteRepository repository;
 
     @GetMapping
@@ -38,12 +38,6 @@ public class AdminVoteController {
     public Vote get(@PathVariable int id) {
         log.info("get vote with id {}", id);
         return repository.findById(id).orElse(null);
-    }
-
-    @GetMapping("/{id}/with-data")
-    public Vote getWithData(@PathVariable int id) {
-        log.info("get vote with id {} with data", id);
-        return repository.getWithData(id);
     }
 
     @DeleteMapping("/{id}")
