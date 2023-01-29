@@ -11,13 +11,16 @@ import java.util.Date;
 public class UserTestData {
     public static final MatcherFactory.Matcher<User> USER_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(User.class, "registered", "password", "votes");
 
-    public static final int USER_ID = 1;
-    public static final int ADMIN_ID = 2;
+    public static final int FIRST_USER_ID = 1;
+    public static final int SECOND_USER_ID = 2;
+    public static final int ADMIN_ID = 3;
     public static final int NOT_FOUND = 100;
     public static final String USER_MAIL = "user@gmail.com";
+    public static final String USER_SECOND_MAIL = "userSecond@gmail.com";
     public static final String ADMIN_MAIL = "admin@javaops.ru";
 
-    public static final User user = new User(USER_ID, "User", USER_MAIL, "password", Role.USER);
+    public static final User firstUser = new User(FIRST_USER_ID, "User", USER_MAIL, "password", Role.USER);
+    public static final User secondUser = new User(SECOND_USER_ID, "UserSecond", USER_SECOND_MAIL, "password", Role.USER);
     public static final User admin = new User(ADMIN_ID, "Admin", ADMIN_MAIL, "admin", Role.ADMIN, Role.USER);
 
     public static User getNew() {
@@ -25,7 +28,7 @@ public class UserTestData {
     }
 
     public static User getUpdated() {
-        return new User(USER_ID, "UpdatedName", USER_MAIL, "newPass", false, new Date(), Collections.singleton(Role.ADMIN));
+        return new User(FIRST_USER_ID, "UpdatedName", USER_MAIL, "newPass", false, new Date(), Collections.singleton(Role.ADMIN));
     }
 
     public static String jsonWithPassword(User user, String password) {

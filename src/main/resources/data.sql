@@ -1,11 +1,13 @@
 INSERT INTO USERS (NAME, EMAIL, PASSWORD)
 VALUES ('User', 'user@gmail.com', '{noop}password'),
+       ('UserSecond', 'userSecond@gmail.com', '{noop}password'),
        ('Admin', 'admin@javaops.ru', '{noop}admin');
 
 INSERT INTO USER_ROLES (ROLE, USER_ID)
 VALUES ('USER', 1),
-       ('ADMIN', 2),
-       ('USER', 2);
+       ('USER', 2),
+       ('ADMIN', 3),
+       ('USER', 3);
 
 INSERT INTO RESTAURANTS (NAME)
 VALUES ('First Restaurant'),
@@ -24,4 +26,5 @@ VALUES ('First Dish', 100, 1),
        ('Ninth Dish', 200, 3);
 
 INSERT INTO VOTES (RESTAURANT_ID, USER_ID)
-VALUES (1, 1);
+VALUES (1, 1),
+       (2, 2);

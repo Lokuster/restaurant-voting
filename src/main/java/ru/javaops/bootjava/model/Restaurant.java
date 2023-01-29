@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -29,4 +26,15 @@ public class Restaurant extends NamedEntity {
     @Nullable
     @JsonIgnore
     private Set<Vote> votes;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @Schema(hidden = true)
+    @Nullable
+    @JsonIgnore
+    private Set<Dish> dishes;
+    public Restaurant(Integer id, String name, Integer voteCount) {
+        super(id, name);
+        this.voteCount = voteCount;
+    }
 }

@@ -58,7 +58,7 @@ public class AdminDishController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@Valid @RequestBody Dish dish, @PathVariable int id) {
-        log.info("update dish {} with id={}", dish, id);
+        log.info("update dish {} with id {}", dish, id);
         assureIdConsistent(dish, id);
         repository.save(dish);
     }

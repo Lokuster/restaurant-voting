@@ -25,10 +25,10 @@ public class VoteRepositoryImpl implements VoteRepository {
     public void vote(User user, Restaurant restaurant) {
         Vote vote = repository.getLastUserVote(user.getId());
         if (vote == null || vote.getVoteDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isBefore(LocalDate.now())) {
-            repository.save(new Vote(user, restaurant, new Date()));
+            repository.save(new Vote(null, user, restaurant, new Date()));
             return;
         }
-        if (vote.getVoteDate().toInstant().atZone(ZoneId.systemDefault()).toLocalTime().isAfter(CAN_CHANGE_BEFORE_TIME)) {
+        if (LocalTime.now().isAfter(CAN_CHANGE_BEFORE_TIME)) {
             throw new AppException(
                     HttpStatus.BAD_REQUEST,
                     "You have already voted for restaurant today");

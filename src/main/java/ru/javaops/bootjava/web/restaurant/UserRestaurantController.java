@@ -21,8 +21,7 @@ import static ru.javaops.bootjava.util.RestaurantUtil.asTo;
 @RequestMapping(value = UserRestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class UserRestaurantController {
-    static final String REST_URL = "/api/user/restaurants";
-
+    public static final String REST_URL = "/api/user/restaurants";
     private final RestaurantRepository repository;
     private final DishRepository dishRepository;
     private final VoteRepository voteRepository;
